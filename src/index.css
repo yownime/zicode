@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0A0A0A;
+    color: #F4F4F5;
+    overflow-x: hidden;
+  }
+  
+  /* Outline text for premium headers */
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.2);
+  }
+  .text-outline-active {
+    color: transparent;
+    -webkit-text-stroke: 1.5px #0055FF;
+  }
+
+  /* Interactive Font Hover Effect */
+  .interactive-word span {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+  }
+  .interactive-word span:hover {
+    transform: scale(1.15) translateY(-5px);
+    color: #FFFFFF;
+    text-shadow: 0 0 20px rgba(0, 85, 255, 0.8);
+    cursor: pointer;
+  }
+
+  /* Reveal text layout animations */
+  @keyframes textReveal {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-reveal {
+    animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+  /* Figma Cursor path relative to the "BEEN" word container */
+  @keyframes figmaPath1 {
+    0% {
+      opacity: 0;
+      transform: translate(-120px, 80px);
+    }
+    15% {
+      opacity: 1;
+      transform: translate(15px, 35px); /* Moves onto the 'BEEN' text */
+    }
+    45% {
+      transform: translate(25px, 30px); /* Hovers exactly on 'BEEN' */
+      opacity: 1;
+    }
+    75% {
+      transform: translate(25px, 30px);
+      opacity: 1;
+    }
+    90% {
+      transform: translate(180px, -40px); /* Slides away */
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(220px, -60px);
+    }
+  }
+
+  .animate-figma-cursor-1 {
+    animation: figmaPath1 8s ease-in-out infinite;
+  }
+
+
+  /* Text color animation matching figma cursor 1 (8s loop) */
+  @keyframes textFlicker {
+    0%, 15%, 75%, 100% {
+      color: #0055FF; /* Default blue */
+    }
+    45%, 70% {
+      color: #FFFFFF; /* Turns white when cursor hovers */
+    }
+  }
+
+  .flicker-active-1 {
+    display: inline-block;
+    animation: textFlicker 8s ease-in-out infinite;
+  }
+
+  /* Randomized letter entrance directions */
+  @keyframes slideFromRight {
+    from { opacity: 0; transform: translateX(80px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideFromBottom {
+    from { opacity: 0; transform: translateY(80px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideFromLeft {
+    from { opacity: 0; transform: translateX(-80px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideFromTop {
+    from { opacity: 0; transform: translateY(-80px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal-right { animation: slideFromRight 1s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+  .reveal-bottom { animation: slideFromBottom 1s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+  .reveal-left { animation: slideFromLeft 1s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+  .reveal-top { animation: slideFromTop 1s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+
+  /* Simple text glow without animation to guarantee visibility */
+  .glow-hover {
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+  }
+  .glow-hover:hover {
+    color: #FFFFFF !important;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(0, 85, 255, 0.6) !important;
+  }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0055FF;
+}
+
+/* Scroll Animation System */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.reveal-on-scroll.reveal-active {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Services: 3D Perspective Rotation & Scale (Bento Cards) */
+.reveal-3d {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(12deg) rotateY(-8deg) translateY(60px) scale(0.95);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease !important;
+  will-change: transform, opacity;
+}
+.reveal-3d.reveal-active {
+  opacity: 1 !important;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1) !important;
+}
+
+/* Journal/Sectors: Clip path / Shutter reveal (horizontal scan) */
+.reveal-clip-right {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  transform: translateX(-30px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: clip-path, transform, opacity;
+}
+.reveal-clip-right.reveal-active {
+  opacity: 1 !important;
+  clip-path: inset(0 0 0 0) !important;
+  transform: translateX(0) !important;
+}
+
+/* Journal Articles: Alternating Horizontal Slides */
+.reveal-slide-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, opacity;
+}
+.reveal-slide-left.reveal-active {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.reveal-slide-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, opacity;
+}
+.reveal-slide-right.reveal-active {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* Testimonial/Ratings: Cinematic Blur & Scale Zoom */
+.reveal-blur-zoom {
+  opacity: 0;
+  filter: blur(15px);
+  transform: scale(0.94) translateY(30px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: filter, transform, opacity;
+}
+.reveal-blur-zoom.reveal-active {
+  opacity: 1 !important;
+  filter: blur(0) !important;
+  transform: scale(1) translateY(0) !important;
+}
+
+.delay-75 { transition-delay: 75ms; }
+.delay-100 { transition-delay: 100ms; }
+.delay-150 { transition-delay: 150ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+
