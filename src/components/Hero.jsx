@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import InteractiveBackground from './InteractiveBackground';
-
+import fotoSaya from '../assets/foto_saya.png';
+import fontImage from '../assets/font.png';
 export default function Hero({ onOpenContact }) {
   const containerRef = useRef(null);
   const [progress, setProgress] = useState(0);
@@ -91,95 +92,73 @@ export default function Hero({ onOpenContact }) {
 
   return (
     <>
-      <section className="relative h-screen flex flex-col justify-between items-center overflow-hidden bg-[#0A0A0A] pt-16 pb-0 select-none">
+      <section className="relative h-screen flex flex-col justify-end items-center overflow-hidden bg-coral pb-0 select-none">
+        {/* Faded Grid Background */}
+        <div 
+          className="absolute inset-0 z-0 pointer-events-none opacity-90 bg-[linear-gradient(to_right,rgba(255,255,255,0.18)_1.5px,transparent_1.5px),linear-gradient(to_bottom,rgba(255,255,255,0.18)_1.5px,transparent_1.5px)] bg-[size:4rem_4rem] animate-grid-move"
+          style={{ maskImage: 'radial-gradient(circle at center, black 20%, transparent 80%)', WebkitMaskImage: 'radial-gradient(circle at center, black 20%, transparent 80%)' }}
+        ></div>
 
-        {/* Top Decoration Row */}
-        <div className="relative z-10 w-full max-w-7xl flex justify-between items-center px-6 md:px-12 pt-6 text-[10px] font-mono tracking-widest text-zinc-500">
-          <div className="flex items-center gap-2 w-1/3 justify-start">
-            <span className="w-1.5 h-1.5 bg-coral rounded-full animate-ping"></span>
-            <span>SYSTEM ACTIVE</span>
-          </div>
 
-          {/* Centered Logo ZICODE. */}
-          <div className="flex justify-center w-1/3">
-            <span className="text-xl md:text-2xl font-black tracking-tighter text-white uppercase select-none">
-              ZICODE<span className="text-coral">.</span>
-            </span>
-          </div>
 
-          <div className="flex justify-end w-1/3">
-            <span>[ 00 : 00 : EST ]</span>
+
+
+        {/* Diagonal Marquee Tapes (Crossed perfectly in the center, Behind Profile) */}
+        {/* Pink Tape (Reverse) */}
+        <div className="absolute top-[70%] md:top-[65%] left-[-10%] w-[120%] h-12 md:h-14 bg-[#FF007F] rotate-[8deg] md:rotate-[4deg] z-[4] border-y-4 border-black overflow-hidden flex items-center shadow-[4px_8px_0px_rgba(0,0,0,1)]">
+          <div className="flex w-max animate-marquee whitespace-nowrap [animation-direction:reverse]">
+             {[...Array(4)].map((_, i) => (
+               <div key={`pink-${i}`} className="flex shrink-0 items-center text-white font-black uppercase tracking-widest text-sm md:text-lg">
+                 <span className="px-4">✦ BEYOND LIMITS</span>
+                 <span className="px-4">✦ INNOVATIVE DESIGN</span>
+                 <span className="px-4">✦ WEB EXPERIENCES</span>
+               </div>
+             ))}
           </div>
         </div>
 
-        {/* Dynamic Background Particle/Gradient Canvas & Interactive Grid */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-50">
-          <div className="absolute top-[20%] left-[10%] w-[30rem] h-[30rem] bg-coral/10 rounded-full blur-[120px] animate-pulse-subtle"></div>
-          <div className="absolute bottom-[20%] right-[10%] w-[35rem] h-[35rem] bg-blue-900/15 rounded-full blur-[150px] animate-pulse-subtle" style={{ animationDelay: '1.5s' }}></div>
-          {/* Interactive grid pattern overlay - static */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,85,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,85,255,0.06)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        {/* Yellow Tape (Forward) */}
+        <div className="absolute top-[70%] md:top-[65%] left-[-10%] w-[120%] h-12 md:h-14 bg-[#FDE047] -rotate-[8deg] md:-rotate-[4deg] z-[5] border-y-4 border-black overflow-hidden flex items-center shadow-[4px_8px_0px_rgba(0,0,0,1)]">
+          <div className="flex w-max animate-marquee whitespace-nowrap">
+             {[...Array(4)].map((_, i) => (
+               <div key={`yellow-${i}`} className="flex shrink-0 items-center text-black font-black uppercase tracking-widest text-sm md:text-lg">
+                 <span className="px-4">✦ FRONTEND WIZARD</span>
+                 <span className="px-4">✦ PIXEL PERFECT</span>
+                 <span className="px-4">✦ ALWAYS LEARNING</span>
+                 <span className="px-4">✦ LET'S COLLABORATE</span>
+               </div>
+             ))}
+          </div>
         </div>
 
-        {/* Main Heading */}
-        <div className="relative z-10 max-w-4xl mx-auto w-full px-6 md:px-12 text-center animate-reveal flex-grow flex flex-col justify-center items-center select-none">
-
-          <h1 className="text-4xl md:text-6xl lg:text-[4.5rem] font-black tracking-tighter leading-[0.95] uppercase text-white flex flex-col items-center gap-2">
-
-            {/* Row 1 */}
-            <span className="interactive-word block flex gap-[0.2em] justify-center glow-hover">
-              {"THE".split("").map((char, index) => (
-                <span key={index} className="transition-all duration-300 hover:text-white" style={{ transitionDelay: `${index * 30}ms` }}>{char}</span>
-              ))}
-              <span className="w-4"></span>
-              {"DIGITAL".split("").map((char, index) => (
-                <span key={index} className="transition-all duration-300 hover:text-white" style={{ transitionDelay: `${(index + 3) * 30}ms` }}>{char}</span>
-              ))}
-            </span>
-
-            {/* Row 2 */}
-            <span className="interactive-word block flex gap-[0.2em] justify-center glow-hover">
-              {"SOLUTION".split("").map((char, index) => (
-                <span key={index} className="transition-all duration-300 hover:text-white" style={{ transitionDelay: `${index * 30}ms` }}>{char}</span>
-              ))}
-              <span className="w-4"></span>
-              {"YOU'VE".split("").map((char, index) => (
-                <span key={index} className="transition-all duration-300 hover:text-white" style={{ transitionDelay: `${(index + 6) * 30}ms` }}>{char}</span>
-              ))}
-            </span>
-
-            {/* Row 3 */}
-            <span className="interactive-word block flex gap-[0.2em] justify-center glow-hover whitespace-nowrap">
-              {"BEEN".split("").map((char, index) => (
-                <span key={index} className="transition-all duration-300 hover:text-white" style={{ transitionDelay: `${index * 30}ms` }}>{char}</span>
-              ))}
-              <span className="w-4"></span>
-              <span className="relative inline-flex items-center flicker-active-1 whitespace-nowrap">
-                {/* Figma Cursor 1 (ZICODE - Electric Blue Theme) */}
-                <span className="absolute top-0 left-0 animate-figma-cursor-1 flex items-start gap-1 z-30 pointer-events-none">
-                  <svg className="w-4 h-4 text-blue-500 fill-current drop-shadow-md" viewBox="0 0 24 24">
-                    <path d="M4.5 3v15.2l4.7-4.3 3.8 8.8 3.5-1.5-3.8-8.8 6-0.6Z" />
-                  </svg>
-                  <span className="bg-blue-500 text-white text-[8px] font-mono px-1.5 py-0.5 rounded-sm font-bold shadow-md uppercase tracking-wider">
-                    ZICODE
-                  </span>
-                </span>
-
-                {"LOOKING".split("").map((char, index) => (
-                  <span key={index} className="transition-all duration-300" style={{ transitionDelay: `${(index + 4) * 30}ms` }}>{char}</span>
-                ))}
-              </span>
-              <span className="w-4"></span>
-              {"FOR".split("").map((char, index) => (
-                <span key={index} className="transition-all duration-300 hover:text-white" style={{ transitionDelay: `${(index + 11) * 30}ms` }}>{char}</span>
-              ))}
-            </span>
-
-          </h1>
+        {/* Minimalist Top Anchors */}
+        {/* Top Left: Location/Info */}
+        <div className="absolute top-8 md:top-10 left-6 md:left-12 z-30 hidden md:block">
+          <p className="text-white/50 text-xs font-medium uppercase tracking-widest text-left leading-relaxed">
+            Based in<br/>
+            <span className="text-white font-bold">Indonesia</span>
+          </p>
         </div>
 
-        {/* Scroll Hint at absolute bottom of first viewport fold */}
-        <div className="relative z-10 w-full flex flex-col items-center gap-4 pb-8">
-          <span className="text-[10px] font-mono tracking-[0.2em] text-zinc-500 uppercase animate-bounce">SCROLL TO DISCOVER ↓</span>
+        {/* Status Pill (Centered below logo on mobile, Top Right on desktop) */}
+        <div className="absolute top-36 md:top-10 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-12 z-30 w-max">
+          <button 
+            onClick={onOpenContact}
+            className="flex items-center gap-2 bg-white px-4 py-2.5 rounded-full text-black text-[10px] md:text-xs font-black uppercase tracking-widest hover:scale-105 hover:shadow-lg transition-all cursor-pointer shadow-md"
+          >
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            Available for Work
+          </button>
+        </div>
+
+        {/* Small Logo Graphic (Top) */}
+        <div className="absolute top-6 md:top-8 z-20 max-w-[120px] md:max-w-[160px] animate-reveal">
+          <img src={fontImage} alt="Logo" className="w-full h-auto object-contain drop-shadow-md" />
+        </div>
+
+        {/* Profile Image (Bottom Center) */}
+        <div className="relative z-10 w-[85%] max-w-[380px] md:w-auto md:max-w-[480px] animate-reveal" style={{ animationDelay: '150ms' }}>
+          <img src={fotoSaya} alt="Ziky Profile" className="w-full h-auto object-contain drop-shadow-[0px_-10px_20px_rgba(0,0,0,0.2)]" />
         </div>
       </section>
 
@@ -191,9 +170,9 @@ export default function Hero({ onOpenContact }) {
             {/* Header Row (as shown in the mockup) */}
             <div className="w-full flex flex-col select-none">
               <div className="flex justify-between items-end border-b border-white/10 pb-4 w-full">
-                <h3 className="text-xl md:text-3xl lg:text-4xl font-black tracking-tighter uppercase text-white leading-none flex flex-wrap items-center">
+                <h3 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase text-white leading-none flex flex-wrap items-center">
                   <span>DIGITAL SOLUTIONS THAT</span>
-                  <span className="bg-coral text-white px-3 py-1.5 ml-2.5 inline-block select-none rounded-xl">CONNECT & PERFORM</span>
+                  <span className="bg-[#FF007F] text-white px-4 py-2 ml-3 inline-block select-none border-2 border-white shadow-[6px_6px_0px_white] -rotate-2 mt-2 md:mt-0">CONNECT & PERFORM</span>
                 </h3>
                 <span className="text-xs md:text-sm font-black tracking-widest uppercase text-zinc-500">
                   THE WORK
@@ -219,14 +198,14 @@ export default function Hero({ onOpenContact }) {
                     key={index}
                     className="w-full lg:w-[42vw] shrink-0 flex flex-col text-left"
                   >
-                    {/* Image wrapper */}
-                    <div className="relative w-full aspect-[16/10] bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden shadow-2xl group hover:border-coral/40 transition-all duration-500">
+                    {/* Image wrapper (Brutalist Style) */}
+                    <div className="relative w-full aspect-[16/10] bg-zinc-900 border-4 border-white shadow-[8px_8px_0px_white] overflow-hidden group hover:-translate-y-2 hover:translate-x-2 hover:shadow-[4px_4px_0px_white] transition-all duration-300">
                       <div
                         className="absolute inset-0 bg-cover bg-center opacity-85 group-hover:scale-105 transition-transform duration-700"
                         style={{ backgroundImage: `url('${image.url}')` }}
                       ></div>
-                      {/* Glassmorphism badge overlay */}
-                      <div className="absolute top-4 right-4 px-3 py-1 bg-black/50 backdrop-blur rounded text-[9px] font-bold text-coral tracking-widest uppercase border border-white/5">
+                      {/* Brutalist badge overlay */}
+                      <div className="absolute top-4 right-4 px-4 py-1.5 bg-[#FDE047] text-black border-2 border-black font-black text-[10px] tracking-widest uppercase shadow-[4px_4px_0px_rgba(0,0,0,1)] -rotate-2">
                         {image.badge}
                       </div>
                     </div>

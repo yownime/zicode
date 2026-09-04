@@ -16,6 +16,7 @@ export default {
       animation: {
         'marquee': 'marquee 25s linear infinite',
         'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+        'grid-move': 'gridMove 4s linear infinite',
       },
       keyframes: {
         marquee: {
@@ -25,6 +26,10 @@ export default {
         pulseSubtle: {
           '0%, 100%': { opacity: '0.8', transform: 'scale(1)' },
           '50%': { opacity: '1', transform: 'scale(1.02)' },
+        },
+        gridMove: {
+          '0%': { backgroundPosition: '0 0' },
+          '100%': { backgroundPosition: '4rem 4rem' }
         }
       }
     },

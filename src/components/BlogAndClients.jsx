@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // trigger HMR
 import { ArrowUpRight } from 'lucide-react';
 
 export default function BlogAndClients({ onOpenContact }) {
@@ -15,132 +15,77 @@ export default function BlogAndClients({ onOpenContact }) {
       readTime: '6 MIN READ',
       title: 'SCALING REACT APPLICATIONS FOR MILLIONS OF USERS',
       desc: 'An in-depth breakdown of server-side state hydration, code virtualization, and dynamic route rendering patterns to maintain sub-second rendering speeds.',
-      date: 'JUNE 22, 2026'
+      date: 'JUNE 22, 2026',
+      badgeColor: 'bg-[#FDE047]'
     },
     {
       category: 'DESIGN SYSTEM',
       readTime: '4 MIN READ',
       title: 'WHY USER EXPERIENCE DICTATES YOUR RETENTION RATE',
       desc: 'Exploring structural feedback loops, micro-interaction cues, and cognitive friction point analysis that drive product loyalty.',
-      date: 'MAY 18, 2026'
+      date: 'MAY 18, 2026',
+      badgeColor: 'bg-[#00E5FF]'
     }
   ];
 
   return (
-    <section id="blog" className="relative py-24 px-6 md:px-12 bg-black border-t border-white/5 overflow-hidden">
+    <section id="blog" className="relative py-24 px-6 md:px-12 lg:px-24 bg-black select-none overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col gap-24">
         
-        {/* Sectors section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left panel */}
-          <div className="lg:col-span-5 text-left reveal-on-scroll">
-            <span className="text-xs font-bold tracking-widest text-coral uppercase block mb-3">// TARGET SECTORS</span>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-white leading-none mb-6">
-              OUR COLLABORATORS
-            </h2>
-            <p className="text-zinc-400 text-sm max-w-sm mb-8 leading-relaxed">
-              We align with builders, founders, and innovation leaders. We don't just supply developers; we co-pilot technical roadmaps.
-            </p>
-            <button 
-              onClick={onOpenContact}
-              className="px-6 py-3 border border-white text-xs font-bold tracking-widest text-white hover:bg-white hover:text-black transition-all duration-300 rounded-full"
-            >
-              WHO WE SCALE
-            </button>
-          </div>
-
-          {/* Right panel (sectors list) */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {sectors.map((sector, index) => {
-              const delays = ['delay-75', 'delay-150', 'delay-200', 'delay-300'];
-              return (
-                <div 
-                  key={index}
-                  className={`p-8 border border-white/5 bg-zinc-950/50 rounded-2xl hover:border-coral/30 hover:bg-zinc-900/40 transition-all duration-300 flex flex-col justify-between text-left group reveal-slide-right ${delays[index]}`}
-                >
-                  <div>
-                    <span className="text-xs font-mono text-zinc-600 block mb-4">0{index + 1}/</span>
-                    <h3 className="text-xl font-bold text-white uppercase group-hover:text-coral transition-colors duration-300 mb-2">
-                      {sector.title}
-                    </h3>
-                  </div>
-                  <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mt-4">
-                    {sector.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
         {/* Blog section */}
-        <div className="border-t border-white/10 pt-24">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal-on-scroll">
+        <div>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
             <div className="text-left">
-              <span className="text-xs font-bold tracking-widest text-coral uppercase block mb-3">// TECH INSIGHTS</span>
-              <h2 className="text-4xl md:text-6xl font-black uppercase text-white leading-none flex flex-wrap items-center gap-3">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white leading-none flex flex-wrap items-center gap-4">
                 <span className="tracking-tighter">ZICODE</span>
-                <span className="inline-block bg-coral text-white px-4 py-1.5 md:px-6 md:py-2.5 rounded-xl md:rounded-[1.5rem] tracking-tighter text-[90%]">
+                <span className="inline-block bg-[#FF007F] text-white px-4 py-2 border-2 border-white -rotate-1 mt-2 md:mt-0">
                   JOURNAL
                 </span>
               </h2>
             </div>
-            <button className="text-[10px] md:text-xs font-bold tracking-widest text-white hover:text-coral flex items-center gap-2 transition-colors self-start md:self-end group uppercase font-mono">
+            <button className="text-xs font-black tracking-widest text-white hover:text-black hover:bg-white hover:border-white flex items-center gap-2 transition-colors uppercase group border-4 border-white p-4">
               VIEW ALL INSIGHTS 
-              <span className="p-1 rounded-full bg-white/5 border border-white/10 group-hover:border-coral/40 group-hover:bg-coral/10 transition-all duration-300">
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </span>
+              <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" strokeWidth={3} />
             </button>
           </div>
 
           {/* Styled Articles Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {articles.map((article, index) => {
-              const isFirst = index === 0;
               return (
                 <article 
                   key={index}
-                  className={`group relative border border-white/5 bg-zinc-950/40 hover:bg-zinc-950/80 p-8 md:p-10 rounded-3xl flex flex-col justify-between text-left hover:border-coral/30 transition-all duration-500 overflow-hidden ${
-                    isFirst ? 'reveal-slide-left' : 'reveal-slide-right'
-                  }`}
+                  className="group relative border-4 border-white bg-black hover:bg-zinc-900 p-8 md:p-10 flex flex-col justify-between text-left transition-colors"
                 >
-                  {/* Decorative glowing gradient orb behind the content */}
-                  <div className={`absolute top-[-20%] right-[-10%] w-72 h-72 rounded-full blur-[90px] pointer-events-none opacity-0 group-hover:opacity-30 transition-opacity duration-700 ${
-                    isFirst ? 'bg-coral/20' : 'bg-violet-600/20'
-                  }`}></div>
-
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     <div>
                       {/* Category Badge & Read Time */}
-                      <div className="flex justify-between items-center text-[10px] font-mono text-zinc-500 mb-8">
-                        <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full font-bold text-coral tracking-wider">
+                      <div className="flex justify-between items-center text-[10px] font-black mb-8">
+                        <span className={`px-3 py-1 border-2 border-white text-black uppercase tracking-widest ${article.badgeColor}`}>
                           {article.category}
                         </span>
-                        <span className="flex items-center gap-1.5 font-semibold">
-                          <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse"></span>
+                        <span className="flex items-center gap-2 font-bold text-white uppercase tracking-widest bg-white/10 px-2 py-1 border-2 border-white/20">
                           {article.readTime}
                         </span>
                       </div>
 
                       {/* Article Title */}
-                      <h3 className="text-2xl md:text-3xl font-black text-white uppercase leading-tight tracking-tighter mb-4 group-hover:text-coral transition-colors duration-300">
+                      <h3 className="text-2xl md:text-3xl font-black text-white uppercase leading-tight tracking-tighter mb-4 group-hover:text-white">
                         {article.title}
                       </h3>
 
                       {/* Article Description */}
-                      <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mb-8 max-w-xl">
+                      <p className="text-zinc-400 font-medium text-sm leading-relaxed mb-8 max-w-xl">
                         {article.desc}
                       </p>
                     </div>
 
                     {/* Bottom Row */}
-                    <div className="border-t border-white/5 pt-6 mt-auto flex justify-between items-center text-[10px] font-mono text-zinc-500">
+                    <div className="border-t-4 border-white/20 pt-6 mt-auto flex justify-between items-center text-[10px] font-black text-zinc-400 uppercase tracking-widest">
                       <span>{article.date}</span>
-                      <span className="text-white group-hover:text-coral transition-colors flex items-center gap-2 font-bold tracking-wider">
+                      <span className="text-white group-hover:text-[#FDE047] transition-colors flex items-center gap-2">
                         READ ARTICLE 
-                        <span className="p-1 rounded-full bg-white/5 border border-white/10 group-hover:border-coral/40 group-hover:bg-coral/10 transition-all duration-300">
-                          <ArrowUpRight className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform duration-300" />
-                        </span>
+                        <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" strokeWidth={3} />
                       </span>
                     </div>
                   </div>

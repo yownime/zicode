@@ -19,7 +19,7 @@ export default function Navbar({ onOpenContact }) {
 
   return (
     <nav 
-      className={`left-0 w-full z-50 backdrop-blur-md bg-black/85 transition-[padding,background-color,border-color] duration-300 ${
+      className={`left-0 w-full z-50 backdrop-blur-md bg-black transition-[padding,background-color,border-color] duration-300 ${
         isSticky 
           ? 'fixed top-0 translate-y-0 border-b border-white/10 py-3 shadow-lg px-6 md:px-12' 
           : 'absolute top-[100vh] -translate-y-full border-t border-white/10 py-4 px-6 md:px-12'
