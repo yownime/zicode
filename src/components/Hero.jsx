@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'; // trigger HMR revert 2
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import InteractiveBackground from './InteractiveBackground';
 import fotoSaya from '../assets/foto_saya.png';
@@ -135,7 +135,7 @@ export default function Hero({ onOpenContact }) {
         {/* Top Left: Location/Info */}
         <div className="absolute top-8 md:top-10 left-6 md:left-12 z-30 hidden md:block">
           <p className="text-white/50 text-xs font-medium uppercase tracking-widest text-left leading-relaxed">
-            Based in<br/>
+            Berbasis di<br/>
             <span className="text-white font-bold">Indonesia</span>
           </p>
         </div>
@@ -147,7 +147,7 @@ export default function Hero({ onOpenContact }) {
             className="flex items-center gap-2 bg-white px-4 py-2.5 rounded-full text-black text-[10px] md:text-xs font-black uppercase tracking-widest hover:scale-105 hover:shadow-lg transition-all cursor-pointer shadow-md"
           >
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            Available for Work
+            Tersedia untuk Proyek
           </button>
         </div>
 
@@ -171,16 +171,16 @@ export default function Hero({ onOpenContact }) {
             <div className="w-full flex flex-col select-none">
               <div className="flex justify-between items-end border-b border-white/10 pb-4 w-full">
                 <h3 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase text-white leading-none flex flex-wrap items-center">
-                  <span>DIGITAL SOLUTIONS THAT</span>
-                  <span className="bg-[#FF007F] text-white px-4 py-2 ml-3 inline-block select-none border-2 border-white shadow-[6px_6px_0px_white] -rotate-2 mt-2 md:mt-0">CONNECT & PERFORM</span>
+                  <span>SOLUSI DIGITAL YANG</span>
+                  <span className="bg-[#FF007F] text-white px-4 py-2 ml-3 inline-block select-none border-2 border-white shadow-[6px_6px_0px_white] -rotate-2 mt-2 md:mt-0">TERHUBUNG & BERDAMPAK</span>
                 </h3>
                 <span className="text-xs md:text-sm font-black tracking-widest uppercase text-zinc-500">
-                  THE WORK
+                  KARYA KAMI
                 </span>
               </div>
               <div className="flex justify-between items-center pt-3 text-[10px] font-mono tracking-widest text-zinc-500 uppercase">
                 <span>(01)</span>
-                <span>Selected Showcases</span>
+                <span>Karya Terpilih</span>
               </div>
             </div>
 
@@ -219,9 +219,9 @@ export default function Hero({ onOpenContact }) {
                       </div>
                       <div className="w-1/2">
                         <p className="text-xs text-zinc-400 leading-normal max-w-[280px]">
-                          {index === 0 && 'High-performing dashboard systems and advanced financial allocation analytics designed for institutional scale.'}
-                          {index === 1 && 'Next-gen health monitoring dashboard containing real-time telemetry metrics and coaching overlays.'}
-                          {index === 2 && 'Custom fintech dashboards, automated smart contract tracking, and secure financial asset routing APIs.'}
+                          {index === 0 && 'Sistem dasbor berperforma tinggi dan analitik alokasi keuangan tingkat lanjut yang dirancang untuk skala institusi.'}
+                          {index === 1 && 'Dasbor pemantauan kesehatan generasi berikutnya yang berisi metrik telemetri waktu-nyata dan overlay kepelatihan.'}
+                          {index === 2 && 'Dasbor fintech kustom, pelacakan smart contract otomatis, dan API perutean aset keuangan yang aman.'}
                         </p>
                       </div>
                     </div>

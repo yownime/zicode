@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // trigger HMR
 import { ArrowUpRight } from 'lucide-react';
 
 export default function Portfolio() {
@@ -50,9 +50,16 @@ export default function Portfolio() {
               PRODUK DIGITAL YANG <br className="hidden md:block" />
               <span className="bg-[#FF007F] text-white px-3 py-1 mt-2 lg:mt-3 border-4 border-black shadow-[6px_6px_0px_black] -rotate-1 inline-block">MENCURI PERHATIAN.</span>
             </h3>
-            <p className="text-gray-800 font-bold text-base md:text-lg max-w-md text-left lg:text-right leading-relaxed border-l-8 lg:border-l-0 lg:border-r-8 border-black pl-6 lg:pl-0 lg:pr-6">
-              Kami memadukan desain dan teknologi untuk membangun platform digital yang mendatangkan retensi pengguna dan pertumbuhan bisnis.
-            </p>
+            <div className="flex gap-8 lg:text-right border-l-8 lg:border-l-0 lg:border-r-8 border-black pl-6 lg:pl-0 lg:pr-6">
+              <div className="flex flex-col items-start lg:items-end">
+                <span className="text-5xl md:text-6xl font-black text-black tracking-tighter leading-none">40+</span>
+                <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-zinc-500 mt-2">PROYEK SELESAI</span>
+              </div>
+              <div className="flex flex-col items-start lg:items-end">
+                <span className="text-5xl md:text-6xl font-black text-black tracking-tighter leading-none">15</span>
+                <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-zinc-500 mt-2">KLIEN GLOBAL</span>
+              </div>
+            </div>
           </div>
           <div className="flex justify-between items-center pt-6 text-[10px] md:text-xs font-black tracking-widest text-black uppercase">
             <span className="bg-[#FF007F] text-white px-3 py-1.5 border-2 border-black shadow-[2px_2px_0px_black] rotate-2">(04)</span>

@@ -2,28 +2,21 @@ import React from 'react'; // trigger HMR
 import { ArrowUpRight } from 'lucide-react';
 
 export default function BlogAndClients({ onOpenContact }) {
-  const sectors = [
-    { title: 'Tech Startups', desc: 'Accelerating MVPs to seed & Series A with production-ready architectures.' },
-    { title: 'Enterprise Solutions', desc: 'Refactoring legacy networks, custom API gateways, and distributed cloud computing.' },
-    { title: 'Public Sector', desc: 'Secure web systems adhering to strict data privacy regulations and compliance.' },
-    { title: 'E-Commerce Brands', desc: 'Highly customized headless Shopify environments optimized for conversion.' }
-  ];
-
   const articles = [
     {
-      category: 'ENGINEERING',
-      readTime: '6 MIN READ',
-      title: 'SCALING REACT APPLICATIONS FOR MILLIONS OF USERS',
-      desc: 'An in-depth breakdown of server-side state hydration, code virtualization, and dynamic route rendering patterns to maintain sub-second rendering speeds.',
-      date: 'JUNE 22, 2026',
+      category: 'REKAYASA SISTEM',
+      readTime: 'BACA 6 MENIT',
+      title: 'MENSKALAKAN APLIKASI REACT UNTUK JUTAAN PENGGUNA',
+      desc: 'Rincian mendalam tentang hidrasi state di sisi server, virtualisasi kode, dan pola rute dinamis untuk kecepatan render kilat.',
+      date: '22 JUNI 2026',
       badgeColor: 'bg-[#FDE047]'
     },
     {
-      category: 'DESIGN SYSTEM',
-      readTime: '4 MIN READ',
-      title: 'WHY USER EXPERIENCE DICTATES YOUR RETENTION RATE',
-      desc: 'Exploring structural feedback loops, micro-interaction cues, and cognitive friction point analysis that drive product loyalty.',
-      date: 'MAY 18, 2026',
+      category: 'SISTEM DESAIN',
+      readTime: 'BACA 4 MENIT',
+      title: 'MENGAPA PENGALAMAN PENGGUNA MENENTUKAN RETENSI ANDA',
+      desc: 'Mengeksplorasi putaran umpan balik, petunjuk interaksi mikro, dan analisis friksi kognitif yang memengaruhi kesetiaan pengguna.',
+      date: '18 MEI 2026',
       badgeColor: 'bg-[#00E5FF]'
     }
   ];
@@ -37,14 +30,14 @@ export default function BlogAndClients({ onOpenContact }) {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
             <div className="text-left">
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase text-white leading-none flex flex-wrap items-center gap-4">
-                <span className="tracking-tighter">ZICODE</span>
+                <span className="tracking-tighter">JURNAL</span>
                 <span className="inline-block bg-[#FF007F] text-white px-4 py-2 border-2 border-white -rotate-1 mt-2 md:mt-0">
-                  JOURNAL
+                  ZICODE
                 </span>
               </h2>
             </div>
             <button className="text-xs font-black tracking-widest text-white hover:text-black hover:bg-white hover:border-white flex items-center gap-2 transition-colors uppercase group border-4 border-white p-4">
-              VIEW ALL INSIGHTS 
+              LIHAT SEMUA ARTIKEL 
               <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" strokeWidth={3} />
             </button>
           </div>
@@ -84,7 +77,7 @@ export default function BlogAndClients({ onOpenContact }) {
                     <div className="border-t-4 border-white/20 pt-6 mt-auto flex justify-between items-center text-[10px] font-black text-zinc-400 uppercase tracking-widest">
                       <span>{article.date}</span>
                       <span className="text-white group-hover:text-[#FDE047] transition-colors flex items-center gap-2">
-                        READ ARTICLE 
+                        BACA ARTIKEL 
                         <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" strokeWidth={3} />
                       </span>
                     </div>

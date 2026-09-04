@@ -1,42 +1,42 @@
-import React from 'react'; // trigger HMR for Services.jsx
+import React from 'react'; // trigger HMR
 import { LayoutGrid, Cpu, Code2, Layers, Cloud, Sparkles } from 'lucide-react';
 
 export default function Services() {
   const services = [
     {
-      title: "Custom Web Dev",
+      title: "Pengembangan Web",
       badge: "REACT, NEXT.JS, TAILWIND",
-      desc: "Blazing-fast, responsive web interfaces structured with modern architecture. We construct SEO-optimized storefronts and interactive applications.",
+      desc: "Antarmuka web super cepat dan responsif dengan arsitektur modern. Kami membangun sistem teroptimasi SEO dan aplikasi interaktif.",
       icon: <Code2 className="w-8 h-8" strokeWidth={3} />
     },
     {
-      title: "UI/UX Design",
+      title: "Desain UI/UX",
       badge: "FIGMA, FRAMER MOTION",
-      desc: "Interactive, premium mockups and prototypes. We create high-fidelity design systems and bold micro-interactions.",
+      desc: "Mockup interaktif dan prototipe premium. Kami menciptakan sistem desain tingkat tinggi dan interaksi mikro yang berani.",
       icon: <LayoutGrid className="w-8 h-8" strokeWidth={3} />
     },
     {
-      title: "Mobile Eng",
+      title: "Aplikasi Mobile",
       badge: "REACT NATIVE, SWIFT",
-      desc: "Seamless cross-platform mobile solutions offering smooth native-level performance and fluid gestures.",
+      desc: "Solusi mobile lintas platform tanpa batas yang menawarkan performa tingkat native yang mulus dan gerakan yang cair.",
       icon: <Cpu className="w-8 h-8" strokeWidth={3} />
     },
     {
-      title: "Full-Stack Sys",
+      title: "Sistem Full-Stack",
       badge: "POSTGRESQL, NESTJS",
-      desc: "Robust databases modeling, optimized API controllers, and fast memory caching layers ensuring zero bottleneck.",
+      desc: "Pemodelan basis data yang kokoh, pengontrol API yang dioptimalkan, dan lapisan cache memori yang sangat cepat tanpa hambatan.",
       icon: <Layers className="w-8 h-8" strokeWidth={3} />
     },
     {
       title: "Cloud & DevOps",
       badge: "AWS, KUBERNETES",
-      desc: "Scalable cloud server deployment, automatic CI/CD pipelines, and high-uptime load balancers.",
+      desc: "Penyebaran server cloud yang mudah diskalakan, pipeline CI/CD otomatis, dan penyeimbang beban dengan uptime tinggi.",
       icon: <Cloud className="w-8 h-8" strokeWidth={3} />
     },
     {
-      title: "Digital Growth",
+      title: "Pertumbuhan Digital",
       badge: "SEO, PERFORMANCE",
-      desc: "Advanced technical search-engine optimization and core web vitals optimization to drive conversion and organic traffic.",
+      desc: "Optimasi mesin pencari teknis tingkat lanjut dan web vitals inti untuk mendorong konversi dan lalu lintas organik yang tinggi.",
       icon: <Sparkles className="w-8 h-8" strokeWidth={3} />
     }
   ];
@@ -49,14 +49,14 @@ export default function Services() {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end border-b border-white/20 pb-8 mb-16 gap-8">
           <div>
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase text-white leading-tight">
-              WE DO WHAT <br className="hidden md:block"/>
+              KAMI WUJUDKAN <br className="hidden md:block"/>
               <span className="inline-block bg-[#FF007F] text-white px-4 py-2 mt-2 border-2 border-white -rotate-1">
-                YOU WANT
+                YANG ANDA MAU
               </span>
             </h2>
           </div>
           <p className="text-zinc-400 font-bold text-sm md:text-base max-w-md text-left leading-relaxed">
-            We bridge core engineering and sleek art direction to build scalable platforms that deliver exceptional user retention and business-driven growth.
+            Kami memadukan rekayasa teknis dan arahan seni desain tingkat tinggi untuk membangun platform skala besar yang menghasilkan pertumbuhan bisnis Anda.
           </p>
         </div>
 

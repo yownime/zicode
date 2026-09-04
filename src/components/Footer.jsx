@@ -22,33 +22,33 @@ export default function Footer() {
           {/* Column 1: Main navigation links */}
           <div className="flex flex-col gap-6">
             <h4 className="text-xs font-bold uppercase tracking-widest text-white/60 border-b-2 border-white/20 pb-2">
-              NAVIGATION
+              NAVIGASI
             </h4>
             <ul className="flex flex-col gap-3 text-lg font-black tracking-tight uppercase">
-              <li><a href="#portfolio" className="hover:text-blue-500 transition-colors">PROJECTS</a></li>
-              <li><a href="#" className="hover:text-blue-500 transition-colors">WHAT WE DO</a></li>
-              <li><a href="#" className="hover:text-blue-500 transition-colors">TECH STACK</a></li>
-              <li><a href="#" className="hover:text-blue-500 transition-colors">CAREERS</a></li>
+              <li><a href="#portfolio" className="hover:text-blue-500 transition-colors">PROYEK</a></li>
+              <li><a href="#" className="hover:text-blue-500 transition-colors">LAYANAN</a></li>
+              <li><a href="#" className="hover:text-blue-500 transition-colors">TEKNOLOGI</a></li>
+              <li><a href="#" className="hover:text-blue-500 transition-colors">KARIR</a></li>
             </ul>
           </div>
 
           {/* Column 2: Legal links */}
           <div className="flex flex-col gap-6">
             <h4 className="text-xs font-bold uppercase tracking-widest text-white/60 border-b-2 border-white/20 pb-2">
-              LEGAL
+              LEGALITAS
             </h4>
             <ul className="flex flex-col gap-3 text-sm font-bold uppercase tracking-wider">
-              <li><a href="#" className="hover:text-blue-500 transition-colors">PRIVACY POLICY</a></li>
-              <li><a href="#" className="hover:text-blue-500 transition-colors">TERMS OF SERVICE</a></li>
-              <li><a href="#" className="hover:text-blue-500 transition-colors">COOKIE POLICY</a></li>
-              <li><a href="#" className="hover:text-blue-500 transition-colors">SECURITY REPORT</a></li>
+              <li><a href="#" className="hover:text-blue-500 transition-colors">KEBIJAKAN PRIVASI</a></li>
+              <li><a href="#" className="hover:text-blue-500 transition-colors">SYARAT & KETENTUAN</a></li>
+              <li><a href="#" className="hover:text-blue-500 transition-colors">KEBIJAKAN COOKIE</a></li>
+              <li><a href="#" className="hover:text-blue-500 transition-colors">LAPORAN KEAMANAN</a></li>
             </ul>
           </div>
 
           {/* Column 3: Social handles */}
           <div className="flex flex-col gap-6">
             <h4 className="text-xs font-bold uppercase tracking-widest text-white/60 border-b-2 border-white/20 pb-2">
-              DEV & SOCIAL
+              SOSIAL MEDIA
             </h4>
             <div className="flex flex-col gap-3">
               <a href="#" className="flex items-center gap-2 hover:text-blue-500 font-bold transition-colors text-sm uppercase tracking-wider">
@@ -69,7 +69,7 @@ export default function Footer() {
           {/* Column 4: Contact details */}
           <div className="flex flex-col gap-6">
             <h4 className="text-xs font-bold uppercase tracking-widest text-white/60 border-b-2 border-white/20 pb-2">
-              GET IN TOUCH
+              HUBUNGI KAMI
             </h4>
             <div className="flex flex-col gap-2 text-sm font-bold tracking-wider uppercase">
               <a href="mailto:hello@zicode.com" className="text-lg font-black hover:text-blue-500 transition-colors block">
@@ -89,14 +89,14 @@ export default function Footer() {
         <div className="border-t-2 border-white/20 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-black tracking-tighter text-white">ZICODE.</span>
-            <span className="text-xs font-bold uppercase tracking-widest text-white/40">© 2026 Zicode. All rights reserved.</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-white/40">© 2026 Zicode. Hak cipta dilindungi.</span>
           </div>
 
           {/* Scroll to Top */}
           <button 
             onClick={handleScrollToTop}
             className="w-12 h-12 rounded-none border-2 border-white flex items-center justify-center hover:bg-blue-600 hover:border-blue-600 transition-colors group"
-            aria-label="Back to top"
+            aria-label="Kembali ke atas"
           >
             <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" strokeWidth={3} />
           </button>
