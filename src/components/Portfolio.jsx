@@ -1,8 +1,8 @@
-import React, { useState } from 'react'; // trigger HMR
+import React, { useState, useEffect } from 'react'; // trigger HMR
 import { ArrowUpRight } from 'lucide-react';
 
 export default function Portfolio() {
-  const projects = [
+  const defaultProjects = [
     {
       id: 1,
       badge: 'FINTECH PLATFORM',
@@ -33,7 +33,32 @@ export default function Portfolio() {
     }
   ];
 
+  const [projects, setProjects] = useState(defaultProjects);
   const [activeId, setActiveId] = useState(1);
+
+  useEffect(() => {
+    const savedPortfolios = localStorage.getItem('portfolios');
+    if (savedPortfolios) {
+      try {
+        const parsed = JSON.parse(savedPortfolios);
+        // Map local storage data format to match existing component format
+        const formattedSaved = parsed.map(p => ({
+          id: p.id,
+          badge: p.category ? p.category.toUpperCase() : 'NEW PROJECT',
+          title: p.name.toUpperCase(),
+          desc: p.description,
+          image: p.thumbnail,
+          link: p.link
+        }));
+        setProjects([...formattedSaved, ...defaultProjects]);
+        if (formattedSaved.length > 0) {
+          setActiveId(formattedSaved[0].id); // Set first new project as active
+        }
+      } catch (e) {
+        console.error("Error parsing portfolios", e);
+      }
+    }
+  }, []);
 
   return (
     <section id="portfolio" className="relative py-24 px-6 md:px-12 lg:px-24 bg-white select-none overflow-hidden">
@@ -70,12 +95,14 @@ export default function Portfolio() {
 
         {/* Showcase List Layout (Brutalist Accordion) */}
         <div className="flex flex-col w-full border-t-4 border-black">
-          {projects.map((project) => {
+          {projects.map((project, index) => {
             const isActive = activeId === project.id;
+            const displayId = index + 1; // Correct sequential numbering
             return (
               <div
                 key={project.id}
                 onMouseEnter={() => setActiveId(project.id)}
+                onClick={() => project.link && window.open(project.link, '_blank')}
                 className="py-8 md:py-12 border-b-4 border-black cursor-pointer group transition-all duration-300 hover:bg-gray-50"
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -84,7 +111,7 @@ export default function Portfolio() {
                     <span className={`text-sm md:text-lg font-black transition-colors duration-300 ${
                       isActive ? 'text-[#FF007F]' : 'text-gray-400 group-hover:text-black'
                     }`}>
-                      /0{project.id}
+                      /0{displayId}
                     </span>
                     <h4 
                       className={`text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter uppercase transition-all duration-300 ${
