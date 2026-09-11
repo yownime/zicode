@@ -1,27 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Plus, Image as ImageIcon, Link as LinkIcon, Type, AlignLeft, Trash2, LayoutDashboard } from 'lucide-react';
+import { LogOut, Plus, Image as ImageIcon, Link as LinkIcon, Type, AlignLeft, Trash2, LayoutDashboard, Loader2 } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [portfolios, setPortfolios] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    thumbnail: '',
     link: ''
   });
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
 
   const [notification, setNotification] = useState('');
 
   useEffect(() => {
-    // Load initial portfolios from localStorage
-    const savedPortfolios = localStorage.getItem('portfolios');
-    if (savedPortfolios) {
-      setPortfolios(JSON.parse(savedPortfolios));
-    }
+    fetchPortfolios();
   }, []);
+
+  const fetchPortfolios = async () => {
+    try {
+      setIsFetching(true);
+      const res = await fetch('/api/portfolios');
+      if (res.ok) {
+        const data = await res.json();
+        setPortfolios(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch portfolios', error);
+    } finally {
+      setIsFetching(false);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('isAdminAuth');
@@ -33,31 +47,76 @@ const AdminDashboard = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    const newPortfolio = {
-      id: Date.now().toString(),
-      ...formData,
-      category: 'Web Development', // Default category for now
-    };
-
-    const updatedPortfolios = [newPortfolio, ...portfolios];
-    setPortfolios(updatedPortfolios);
-    localStorage.setItem('portfolios', JSON.stringify(updatedPortfolios));
-    
-    // Reset form
-    setFormData({ name: '', description: '', thumbnail: '', link: '' });
-    
-    // Show notification
-    setNotification('Portfolio berhasil ditambahkan!');
-    setTimeout(() => setNotification(''), 3000);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
-  const handleDelete = (id) => {
-    const updatedPortfolios = portfolios.filter(p => p.id !== id);
-    setPortfolios(updatedPortfolios);
-    localStorage.setItem('portfolios', JSON.stringify(updatedPortfolios));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!imageFile) {
+      setNotification('Error: Silakan pilih gambar terlebih dahulu!');
+      setTimeout(() => setNotification(''), 3000);
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // FileReader to Base64 (already in imagePreview)
+      const payload = {
+        name: formData.name,
+        description: formData.description,
+        link: formData.link,
+        imageBase64: imagePreview,
+      };
+
+      const res = await fetch('/api/portfolios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        setNotification('Portfolio berhasil ditambahkan!');
+        // Reset form
+        setFormData({ name: '', description: '', link: '' });
+        setImageFile(null);
+        setImagePreview('');
+        // Refresh data
+        fetchPortfolios();
+      } else {
+        const err = await res.json();
+        setNotification(`Error: ${err.error || 'Gagal menyimpan data'}`);
+      }
+    } catch (error) {
+      console.error(error);
+      setNotification('Error: Terjadi kesalahan jaringan');
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => setNotification(''), 3000);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Yakin ingin menghapus portofolio ini?')) return;
+    
+    try {
+      const res = await fetch(`/api/portfolios?id=${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setPortfolios(prev => prev.filter(p => p.id !== id));
+      }
+    } catch (error) {
+      console.error('Failed to delete', error);
+      alert('Gagal menghapus data');
+    }
   };
 
   return (
@@ -94,7 +153,6 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
-        {/* Mobile Header */}
         <div className="md:hidden p-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-950">
           <h1 className="text-xl font-bold"><span className="text-coral">Admin</span>Panel</h1>
           <button onClick={handleLogout} className="p-2 text-zinc-400 hover:text-red-400">
@@ -107,7 +165,7 @@ const AdminDashboard = () => {
           <div className="flex justify-between items-end">
             <div>
               <h2 className="text-3xl font-bold mb-2">Kelola Portofolio</h2>
-              <p className="text-zinc-400">Tambahkan proyek terbaru ke halaman utama Anda.</p>
+              <p className="text-zinc-400">Tambahkan proyek terbaru dengan aman ke database Anda.</p>
             </div>
             <button onClick={() => navigate('/')} className="text-sm px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 transition-colors">
               Lihat Website
@@ -115,7 +173,7 @@ const AdminDashboard = () => {
           </div>
 
           {notification && (
-            <div className="bg-green-500/10 border border-green-500/50 text-green-400 px-4 py-3 rounded-xl flex items-center justify-between">
+            <div className={`border px-4 py-3 rounded-xl flex items-center justify-between ${notification.startsWith('Error') ? 'bg-red-500/10 border-red-500/50 text-red-400' : 'bg-green-500/10 border-green-500/50 text-green-400'}`}>
               <span>{notification}</span>
             </div>
           )}
@@ -170,21 +228,19 @@ const AdminDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-zinc-400 mb-1.5">URL Thumbnail Image</label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <ImageIcon size={16} className="text-zinc-500" />
+                    <label className="block text-sm font-medium text-zinc-400 mb-1.5">Upload Gambar</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      required
+                      className="block w-full text-sm text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-coral/10 file:text-coral hover:file:bg-coral/20 cursor-pointer"
+                    />
+                    {imagePreview && (
+                      <div className="mt-3 relative w-full h-32 rounded-lg overflow-hidden border border-zinc-800">
+                        <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                       </div>
-                      <input
-                        type="url"
-                        name="thumbnail"
-                        value={formData.thumbnail}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl py-2.5 pl-10 pr-4 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-coral focus:ring-1 focus:ring-coral transition-colors"
-                        placeholder="https://example.com/image.jpg"
-                      />
-                    </div>
+                    )}
                   </div>
 
                   <div>
@@ -207,9 +263,11 @@ const AdminDashboard = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-zinc-100 text-zinc-900 hover:bg-white font-semibold rounded-xl py-2.5 px-4 transition-all duration-300 transform active:scale-[0.98] mt-2"
+                    disabled={isLoading}
+                    className="w-full bg-zinc-100 text-zinc-900 hover:bg-white font-semibold rounded-xl py-2.5 px-4 transition-all duration-300 transform active:scale-[0.98] mt-2 flex justify-center items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Simpan Portofolio
+                    {isLoading ? <Loader2 size={18} className="animate-spin" /> : null}
+                    {isLoading ? 'Menyimpan...' : 'Simpan Portofolio'}
                   </button>
                 </form>
               </div>
@@ -220,7 +278,11 @@ const AdminDashboard = () => {
               <div className="bg-zinc-900/30 border border-zinc-800/50 rounded-2xl p-6">
                 <h3 className="text-xl font-semibold mb-6">Daftar Portofolio ({portfolios.length})</h3>
                 
-                {portfolios.length === 0 ? (
+                {isFetching ? (
+                  <div className="flex justify-center py-12">
+                    <Loader2 size={32} className="animate-spin text-coral" />
+                  </div>
+                ) : portfolios.length === 0 ? (
                   <div className="text-center py-12 border-2 border-dashed border-zinc-800 rounded-xl text-zinc-500">
                     <ImageIcon size={48} className="mx-auto mb-4 opacity-20" />
                     <p>Belum ada portofolio yang ditambahkan.</p>
@@ -234,9 +296,6 @@ const AdminDashboard = () => {
                             src={portfolio.thumbnail} 
                             alt={portfolio.name} 
                             className="w-full h-full object-cover"
-                            onError={(e) => {
-                              e.target.src = 'https://via.placeholder.com/150?text=No+Image';
-                            }}
                           />
                         </div>
                         

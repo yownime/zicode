@@ -37,27 +37,31 @@ export default function Portfolio() {
   const [activeId, setActiveId] = useState(1);
 
   useEffect(() => {
-    const savedPortfolios = localStorage.getItem('portfolios');
-    if (savedPortfolios) {
+    const fetchPortfolios = async () => {
       try {
-        const parsed = JSON.parse(savedPortfolios);
-        // Map local storage data format to match existing component format
-        const formattedSaved = parsed.map(p => ({
-          id: p.id,
-          badge: p.category ? p.category.toUpperCase() : 'NEW PROJECT',
-          title: p.name.toUpperCase(),
-          desc: p.description,
-          image: p.thumbnail,
-          link: p.link
-        }));
-        setProjects([...formattedSaved, ...defaultProjects]);
-        if (formattedSaved.length > 0) {
-          setActiveId(formattedSaved[0].id); // Set first new project as active
+        const res = await fetch('/api/portfolios');
+        if (res.ok) {
+          const parsed = await res.json();
+          // Map API data format to match existing component format
+          const formattedSaved = parsed.map(p => ({
+            id: p.id,
+            badge: p.category ? p.category.toUpperCase() : 'NEW PROJECT',
+            title: p.name.toUpperCase(),
+            desc: p.description,
+            image: p.thumbnail,
+            link: p.link
+          }));
+          setProjects([...formattedSaved, ...defaultProjects]);
+          if (formattedSaved.length > 0) {
+            setActiveId(formattedSaved[0].id); // Set first new project as active
+          }
         }
       } catch (e) {
-        console.error("Error parsing portfolios", e);
+        console.error("Error fetching portfolios", e);
       }
-    }
+    };
+
+    fetchPortfolios();
   }, []);
 
   return (

@@ -50,23 +50,57 @@ export default function Hero({ onOpenContact }) {
     { name: 'aws', svg: 'https://cdn.worldvectorlogo.com/logos/amazon-web-services-2.svg' },
   ];
 
-  const showcaseImages = [
+  const defaultShowcases = [
     {
       url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop',
       title: 'Zicode Web Platform v3',
-      badge: 'Next-Gen Interface'
+      badge: 'Next-Gen Interface',
+      desc: 'Sistem dasbor berperforma tinggi dan analitik alokasi keuangan tingkat lanjut yang dirancang untuk skala institusi.'
     },
     {
       url: 'https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=1200&auto=format&fit=crop',
       title: 'Orion Fitness Companion',
-      badge: 'Mobile App Engineering'
+      badge: 'Mobile App Engineering',
+      desc: 'Dasbor pemantauan kesehatan generasi berikutnya yang berisi metrik telemetri waktu-nyata dan overlay kepelatihan.'
     },
     {
       url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
       title: 'Aura Capital Dashboard',
-      badge: 'Fintech Platform UI'
+      badge: 'Fintech Platform UI',
+      desc: 'Dasbor fintech kustom, pelacakan smart contract otomatis, dan API perutean aset keuangan yang aman.'
     }
   ];
+
+  const [showcaseImages, setShowcaseImages] = useState(defaultShowcases);
+
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      try {
+        const res = await fetch('/api/portfolios');
+        if (res.ok) {
+          const parsed = await res.json();
+          // Map API data format to match showcaseImages format
+          const formattedSaved = parsed.map(p => ({
+            url: p.thumbnail,
+            title: p.name,
+            badge: p.category ? p.category : 'NEW PROJECT',
+            desc: p.description
+          }));
+          
+          // Ambil beberapa saja (misal 3 terbaru) untuk ditampilkan sekilas di Hero
+          const recentPortfolios = formattedSaved.slice(0, 3);
+          
+          // Gabungkan dengan yang default dan batasi total item (misal max 5)
+          const combined = [...recentPortfolios, ...defaultShowcases].slice(0, 5);
+          setShowcaseImages(combined);
+        }
+      } catch (e) {
+        console.error("Error fetching portfolios for Hero", e);
+      }
+    };
+
+    fetchPortfolios();
+  }, []);
 
   // Normalize progress for Page 2
   // t1: Phase 1 (0 to 0.3) - text fades out, card expands to fullscreen
@@ -218,10 +252,8 @@ export default function Hero({ onOpenContact }) {
                         </h4>
                       </div>
                       <div className="w-1/2">
-                        <p className="text-xs text-zinc-400 leading-normal max-w-[280px]">
-                          {index === 0 && 'Sistem dasbor berperforma tinggi dan analitik alokasi keuangan tingkat lanjut yang dirancang untuk skala institusi.'}
-                          {index === 1 && 'Dasbor pemantauan kesehatan generasi berikutnya yang berisi metrik telemetri waktu-nyata dan overlay kepelatihan.'}
-                          {index === 2 && 'Dasbor fintech kustom, pelacakan smart contract otomatis, dan API perutean aset keuangan yang aman.'}
+                        <p className="text-xs text-zinc-400 leading-normal max-w-[280px] line-clamp-3">
+                          {image.desc}
                         </p>
                       </div>
                     </div>
