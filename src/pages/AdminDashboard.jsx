@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Plus, Image as ImageIcon, Link as LinkIcon, Type, AlignLeft, Trash2, LayoutDashboard, Loader2 } from 'lucide-react';
+import { LogOut, Plus, Image as ImageIcon, Link as LinkIcon, Type, AlignLeft, Trash2, LayoutDashboard, Loader2, Tag } from 'lucide-react';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ const AdminDashboard = () => {
   
   const [formData, setFormData] = useState({
     name: '',
+    category: '',
     description: '',
     link: ''
   });
@@ -73,6 +74,7 @@ const AdminDashboard = () => {
       // FileReader to Base64 (already in imagePreview)
       const payload = {
         name: formData.name,
+        category: formData.category,
         description: formData.description,
         link: formData.link,
         imageBase64: imagePreview,
@@ -91,7 +93,7 @@ const AdminDashboard = () => {
       if (res.ok) {
         setNotification('Portfolio berhasil ditambahkan!');
         // Reset form
-        setFormData({ name: '', description: '', link: '' });
+        setFormData({ name: '', category: '', description: '', link: '' });
         setImageFile(null);
         setImagePreview('');
         // Refresh data
@@ -223,6 +225,24 @@ const AdminDashboard = () => {
                         required
                         className="w-full bg-zinc-950 border border-zinc-800 rounded-xl py-2.5 pl-10 pr-4 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-coral focus:ring-1 focus:ring-coral transition-colors"
                         placeholder="Contoh: E-Commerce App"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-zinc-400 mb-1.5">Kategori (Badge)</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Tag size={16} className="text-zinc-500" />
+                      </div>
+                      <input
+                        type="text"
+                        name="category"
+                        value={formData.category}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl py-2.5 pl-10 pr-4 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-coral focus:ring-1 focus:ring-coral transition-colors"
+                        placeholder="Contoh: FINTECH PLATFORM"
                       />
                     </div>
                   </div>
