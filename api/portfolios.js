@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     // Ambil data portofolio
     try {
-      const result = await dbClient.execute('SELECT * FROM portfolios ORDER BY created_at DESC');
+      const result = await dbClient.execute('SELECT * FROM portfolios ORDER BY sort_order ASC, created_at DESC');
       res.status(200).json(result.rows);
     } catch (error) {
       console.error('Error fetching portfolios:', error);
@@ -83,9 +83,6 @@ export default async function handler(req, res) {
     }
 
     try {
-      // Catatan: Jika ingin menghapus gambar dari Cloudinary juga, Anda bisa menambahkan logikanya di sini.
-      // Namun untuk kesederhanaan, kita hanya hapus record di DB.
-      
       await dbClient.execute({
         sql: 'DELETE FROM portfolios WHERE id = ?',
         args: [id],
@@ -95,6 +92,35 @@ export default async function handler(req, res) {
     } catch (error) {
       console.error('Error deleting portfolio:', error);
       res.status(500).json({ error: 'Gagal menghapus data' });
+    }
+  }
+
+  else if (req.method === 'PUT') {
+    // Reorder portofolio
+    // Verifikasi Akses
+    if (req.headers.authorization !== process.env.ADMIN_SECRET_KEY) {
+      return res.status(401).json({ error: 'Akses ditolak: Kata sandi salah atau tidak ada' });
+    }
+
+    const { items } = req.body;
+    if (!Array.isArray(items)) {
+      return res.status(400).json({ error: 'Format data tidak valid' });
+    }
+
+    try {
+      // Jalankan update secara berurutan untuk setiap item
+      // Dalam produksi SQLite/Turso, lebih baik menggunakan transaction,
+      // tetapi untuk skala kecil loop sederhana sudah cukup.
+      for (const item of items) {
+        await dbClient.execute({
+          sql: 'UPDATE portfolios SET sort_order = ? WHERE id = ?',
+          args: [item.sort_order, item.id],
+        });
+      }
+      res.status(200).json({ message: 'Urutan berhasil diperbarui' });
+    } catch (error) {
+      console.error('Error reordering portfolios:', error);
+      res.status(500).json({ error: 'Gagal memperbarui urutan data' });
     }
   } 
   

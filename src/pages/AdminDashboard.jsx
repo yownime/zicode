@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Plus, Image as ImageIcon, Link as LinkIcon, Type, AlignLeft, Trash2, LayoutDashboard, Loader2, Tag } from 'lucide-react';
+import { LogOut, Plus, Image as ImageIcon, Link as LinkIcon, Type, AlignLeft, Trash2, LayoutDashboard, Loader2, Tag, GripVertical } from 'lucide-react';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -111,6 +112,46 @@ const AdminDashboard = () => {
     } finally {
       setIsLoading(false);
       setTimeout(() => setNotification(''), 3000);
+    }
+  };
+
+  const handleDragEnd = async (result) => {
+    if (!result.destination) return;
+
+    // Hitung urutan baru
+    const items = Array.from(portfolios);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    // Update UI seketika
+    setPortfolios(items);
+
+    // Siapkan data untuk dikirim ke backend
+    const updatedItems = items.map((item, index) => ({
+      id: item.id,
+      sort_order: index
+    }));
+
+    try {
+      const adminToken = localStorage.getItem('adminToken');
+      const res = await fetch('/api/portfolios', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': adminToken
+        },
+        body: JSON.stringify({ items: updatedItems })
+      });
+
+      if (res.status === 401) {
+        alert('Sesi Anda telah berakhir. Silakan login kembali.');
+        handleLogout();
+      } else if (!res.ok) {
+        setNotification('Error: Gagal menyimpan urutan baru');
+        setTimeout(() => setNotification(''), 3000);
+      }
+    } catch (e) {
+      console.error('Failed to save order', e);
     }
   };
 
@@ -326,37 +367,63 @@ const AdminDashboard = () => {
                     <p>Belum ada portofolio yang ditambahkan.</p>
                   </div>
                 ) : (
-                  <div className="space-y-4">
-                    {portfolios.map((portfolio) => (
-                      <div key={portfolio.id} className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-zinc-950 border border-zinc-800 rounded-xl group hover:border-zinc-700 transition-colors">
-                        <div className="w-full sm:w-24 h-20 rounded-lg overflow-hidden bg-zinc-900 shrink-0">
-                          <img 
-                            src={portfolio.thumbnail} 
-                            alt={portfolio.name} 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        
-                        <div className="flex-1 min-w-0 w-full">
-                          <h4 className="font-semibold text-lg truncate">{portfolio.name}</h4>
-                          <p className="text-sm text-zinc-400 line-clamp-1 mt-1">{portfolio.description}</p>
-                          <a href={portfolio.link} target="_blank" rel="noopener noreferrer" className="text-xs text-coral hover:underline mt-2 inline-block truncate max-w-full">
-                            {portfolio.link}
-                          </a>
-                        </div>
+                  <DragDropContext onDragEnd={handleDragEnd}>
+                    <Droppable droppableId="portfolios-list">
+                      {(provided) => (
+                        <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-4">
+                          {portfolios.map((portfolio, index) => (
+                            <Draggable key={portfolio.id} draggableId={portfolio.id.toString()} index={index}>
+                              {(provided, snapshot) => (
+                                <div
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  className={`flex flex-col sm:flex-row items-center gap-4 p-4 bg-zinc-950 border rounded-xl group transition-colors ${
+                                    snapshot.isDragging ? 'border-coral shadow-lg shadow-coral/10 z-50' : 'border-zinc-800 hover:border-zinc-700'
+                                  }`}
+                                >
+                                  {/* Drag Handle */}
+                                  <div 
+                                    {...provided.dragHandleProps} 
+                                    className="text-zinc-600 hover:text-zinc-300 cursor-grab active:cursor-grabbing p-1"
+                                    title="Tahan dan Geser"
+                                  >
+                                    <GripVertical size={20} />
+                                  </div>
+                                  
+                                  <div className="w-full sm:w-24 h-20 rounded-lg overflow-hidden bg-zinc-900 shrink-0">
+                                    <img 
+                                      src={portfolio.thumbnail} 
+                                      alt={portfolio.name} 
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  
+                                  <div className="flex-1 min-w-0 w-full">
+                                    <h4 className="font-semibold text-lg truncate">{portfolio.name}</h4>
+                                    <p className="text-sm text-zinc-400 line-clamp-1 mt-1">{portfolio.description}</p>
+                                    <a href={portfolio.link} target="_blank" rel="noopener noreferrer" className="text-xs text-coral hover:underline mt-2 inline-block truncate max-w-full">
+                                      {portfolio.link}
+                                    </a>
+                                  </div>
 
-                        <div className="shrink-0 w-full sm:w-auto flex justify-end">
-                          <button 
-                            onClick={() => handleDelete(portfolio.id)}
-                            className="p-2 text-zinc-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
-                            title="Hapus"
-                          >
-                            <Trash2 size={18} />
-                          </button>
+                                  <div className="shrink-0 w-full sm:w-auto flex justify-end">
+                                    <button 
+                                      onClick={() => handleDelete(portfolio.id)}
+                                      className="p-2 text-zinc-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                                      title="Hapus"
+                                    >
+                                      <Trash2 size={18} />
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </Draggable>
+                          ))}
+                          {provided.placeholder}
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
                 )}
               </div>
             </div>
