@@ -35,6 +35,11 @@ export default async function handler(req, res) {
   } 
   
   else if (req.method === 'POST') {
+    // Verifikasi Akses
+    if (req.headers.authorization !== process.env.ADMIN_SECRET_KEY) {
+      return res.status(401).json({ error: 'Akses ditolak: Kata sandi salah atau tidak ada' });
+    }
+
     // Tambah portofolio baru
     const { name, description, category, imageBase64, link } = req.body;
 
@@ -65,6 +70,11 @@ export default async function handler(req, res) {
   } 
   
   else if (req.method === 'DELETE') {
+    // Verifikasi Akses
+    if (req.headers.authorization !== process.env.ADMIN_SECRET_KEY) {
+      return res.status(401).json({ error: 'Akses ditolak: Kata sandi salah atau tidak ada' });
+    }
+
     // Hapus portofolio
     const { id } = req.query;
 

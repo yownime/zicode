@@ -8,14 +8,32 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Dummy authentication
-    if (username === 'admin' && password === 'admin123') {
-      localStorage.setItem('isAdminAuth', 'true');
-      navigate('/admin');
-    } else {
-      setError('Username atau password salah');
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/verify', {
+        method: 'POST',
+        headers: {
+          'Authorization': password
+        }
+      });
+
+      if (res.ok) {
+        localStorage.setItem('adminToken', password);
+        navigate('/admin');
+      } else {
+        const data = await res.json();
+        setError(data.error || 'Kata sandi salah');
+      }
+    } catch (err) {
+      setError('Gagal menghubungi server');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,10 +94,11 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full bg-coral hover:bg-blue-600 text-white font-medium rounded-xl py-3 px-4 flex items-center justify-center gap-2 transition-all duration-300 transform active:scale-[0.98] mt-4"
+              disabled={isLoading}
+              className="w-full bg-coral hover:bg-blue-600 text-white font-medium rounded-xl py-3 px-4 flex items-center justify-center gap-2 transition-all duration-300 transform active:scale-[0.98] mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>Masuk</span>
-              <ArrowRight size={18} />
+              <span>{isLoading ? 'Memeriksa...' : 'Masuk'}</span>
+              {!isLoading && <ArrowRight size={18} />}
             </button>
           </form>
 

@@ -38,7 +38,7 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isAdminAuth');
+    localStorage.removeItem('adminToken');
     navigate('/login');
   };
 
@@ -78,9 +78,13 @@ const AdminDashboard = () => {
         imageBase64: imagePreview,
       };
 
+      const adminToken = localStorage.getItem('adminToken');
       const res = await fetch('/api/portfolios', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': adminToken
+        },
         body: JSON.stringify(payload)
       });
 
@@ -92,6 +96,9 @@ const AdminDashboard = () => {
         setImagePreview('');
         // Refresh data
         fetchPortfolios();
+      } else if (res.status === 401) {
+        alert('Sesi Anda telah berakhir atau kata sandi diubah. Silakan login kembali.');
+        handleLogout();
       } else {
         const err = await res.json();
         setNotification(`Error: ${err.error || 'Gagal menyimpan data'}`);
@@ -109,13 +116,24 @@ const AdminDashboard = () => {
     if (!window.confirm('Yakin ingin menghapus portofolio ini?')) return;
     
     try {
-      const res = await fetch(`/api/portfolios?id=${id}`, { method: 'DELETE' });
+      const adminToken = localStorage.getItem('adminToken');
+      const res = await fetch(`/api/portfolios?id=${id}`, { 
+        method: 'DELETE',
+        headers: {
+          'Authorization': adminToken
+        }
+      });
       if (res.ok) {
         setPortfolios(prev => prev.filter(p => p.id !== id));
+      } else if (res.status === 401) {
+        alert('Akses ditolak. Silakan login kembali.');
+        handleLogout();
+      } else {
+        alert('Gagal menghapus data');
       }
     } catch (error) {
       console.error('Failed to delete', error);
-      alert('Gagal menghapus data');
+      alert('Gagal menghubungi server');
     }
   };
 
