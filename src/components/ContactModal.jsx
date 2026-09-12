@@ -13,8 +13,8 @@ export default function ContactModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const WA_NUMBER = '6281234567890'; // Silakan ganti dengan nomor WA asli
-  
+  const WA_NUMBER = '6282160294628'; // Silakan ganti dengan nomor WA asli
+
   const handleWA = () => {
     const text = "Halo, saya tertarik untuk mendiskusikan sebuah proyek.";
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
@@ -59,12 +59,12 @@ export default function ContactModal({ isOpen, onClose }) {
 
       {/* Drawer */}
       <div className="relative w-full max-w-2xl h-full bg-[#0A0A0A] border-l border-white/10 p-8 md:p-12 overflow-y-auto flex flex-col justify-between z-10 animate-slide-in">
-        
+
         {/* Header */}
         <div>
           <div className="flex justify-between items-center mb-8">
             <span className="text-xs font-bold tracking-widest text-coral uppercase">// KONSULTASI PROYEK</span>
-            <button 
+            <button
               onClick={onClose}
               className="p-2 border border-white/10 rounded-full hover:border-coral/50 hover:bg-white/5 transition-all text-white hover:text-coral"
             >
@@ -81,7 +81,7 @@ export default function ContactModal({ isOpen, onClose }) {
           </p>
 
           {/* Tombol WA Besar */}
-          <button 
+          <button
             onClick={handleWA}
             className="w-full mb-10 px-8 py-5 bg-[#25D366] text-black hover:bg-[#1ebd5a] rounded-2xl font-black text-sm tracking-widest transition-all duration-300 flex items-center justify-center gap-3 shadow-lg shadow-[#25D366]/20 transform hover:-translate-y-1"
           >
@@ -105,25 +105,25 @@ export default function ContactModal({ isOpen, onClose }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <label className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">NAMA LENGKAP</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  required 
-                  placeholder="John Doe" 
+                  required
+                  placeholder="John Doe"
                   className="bg-zinc-900 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-coral transition-colors"
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">EMAIL ADDRESS</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  required 
-                  placeholder="john@company.com" 
+                  required
+                  placeholder="john@company.com"
                   className="bg-zinc-900 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-coral transition-colors"
                 />
               </div>
@@ -131,7 +131,7 @@ export default function ContactModal({ isOpen, onClose }) {
 
             <div className="flex flex-col gap-2">
               <label className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">TIPE PROYEK</label>
-              <select 
+              <select
                 name="project_type"
                 value={formData.project_type}
                 onChange={handleInputChange}
@@ -147,19 +147,19 @@ export default function ContactModal({ isOpen, onClose }) {
 
             <div className="flex flex-col gap-2">
               <label className="text-[10px] font-bold tracking-wider text-zinc-500 uppercase">DETAIL PESAN</label>
-              <textarea 
-                rows="4" 
+              <textarea
+                rows="4"
                 name="details"
                 value={formData.details}
                 onChange={handleInputChange}
                 required
-                placeholder="Ceritakan tentang proyek Anda..." 
+                placeholder="Ceritakan tentang proyek Anda..."
                 className="bg-zinc-900 border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-coral transition-colors resize-none"
               ></textarea>
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={isLoading}
               className="mt-2 px-8 py-4 bg-white text-black hover:bg-coral hover:text-white font-bold text-xs rounded-xl tracking-widest transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
             >
