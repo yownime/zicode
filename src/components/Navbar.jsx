@@ -57,7 +57,7 @@ export default function Navbar({ onOpenContact }) {
             onClick={onOpenContact}
             className="px-6 py-2.5 bg-black border border-white/20 hover:border-white text-white font-bold text-[10px] tracking-widest hover:bg-white hover:text-black transition-all duration-300 rounded-full uppercase"
           >
-            LET'S BUILD
+            START A PROJECT
           </button>
           
           {/* Mobile hamburger icon */}
