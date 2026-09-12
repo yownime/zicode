@@ -44,9 +44,7 @@ export default function Navbar({ onOpenContact }) {
         <a href="#blog" className="hidden md:inline hover:text-white transition-colors duration-200">
           Blog
         </a>
-        <a href="#testimonials" className="hidden md:inline hover:text-white transition-colors duration-200">
-          Testimonials
-        </a>
+
         <button onClick={onOpenContact} className="hidden md:inline hover:text-white transition-colors duration-200 uppercase">
           Get in touch
         </button>
