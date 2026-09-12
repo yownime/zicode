@@ -178,8 +178,8 @@ export default function Hero({ onOpenContact }) {
       </section>
 
       {/* 2. Area Konten Bawah (CTA & Mockups) - Page 2 with Horizontal Scroll Showcase */}
-      <section ref={containerRef} className="relative h-[300vh] bg-black border-t border-white/5">
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden bg-black px-6 md:px-12">
+      <section ref={containerRef} className={`relative ${isDesktop ? 'h-[300vh]' : 'h-auto py-20'} bg-black border-t border-white/5`}>
+        <div className={`${isDesktop ? 'sticky top-0 h-screen overflow-hidden' : 'relative h-auto'} w-full flex flex-col justify-center bg-black px-6 md:px-12`}>
 
           <div className="max-w-7xl mx-auto w-full flex flex-col gap-10">
             {/* Header Row (as shown in the mockup) */}
@@ -199,10 +199,10 @@ export default function Hero({ onOpenContact }) {
               </div>
             </div>
 
-            {/* Horizontal Showcase Cards Strip */}
+            {/* Horizontal Showcase Cards Strip (Desktop) / Vertical Stack (Mobile) */}
             <div className="w-full overflow-visible">
               <div
-                className="flex flex-row gap-8 transition-transform duration-300 ease-out"
+                className={`flex ${isDesktop ? 'flex-row' : 'flex-col'} gap-8 transition-transform duration-300 ease-out`}
                 style={{
                   transform: isDesktop ? `translateX(-${progress * 45}vw)` : 'none',
                   width: isDesktop ? '145vw' : '100%'
@@ -211,7 +211,7 @@ export default function Hero({ onOpenContact }) {
                 {showcaseImages.map((image, index) => (
                   <div
                     key={index}
-                    className="w-full lg:w-[42vw] shrink-0 flex flex-col text-left"
+                    className={`w-full ${isDesktop ? 'lg:w-[42vw]' : ''} shrink-0 flex flex-col text-left`}
                   >
                     {/* Image wrapper (Brutalist Style) */}
                     <div className="relative w-full aspect-[16/10] bg-zinc-900 border-4 border-white shadow-[8px_8px_0px_white] overflow-hidden group hover:-translate-y-2 hover:translate-x-2 hover:shadow-[4px_4px_0px_white] transition-all duration-300">
