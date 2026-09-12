@@ -2,36 +2,7 @@ import React, { useState, useEffect } from 'react'; // trigger HMR
 import { ArrowUpRight } from 'lucide-react';
 
 export default function Portfolio() {
-  const defaultProjects = [
-    {
-      id: 1,
-      badge: 'FINTECH PLATFORM',
-      title: 'AURA CAPITAL',
-      desc: 'High-performing transaction management, smart investment allocation interfaces, and institutional liquidity dashboards designed for next-gen financial operators.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
-    },
-    {
-      id: 2,
-      badge: 'E-COMMERCE ECOSYSTEM',
-      title: 'VELOCITY APPAREL',
-      desc: 'High-converting interactive catalog with fluid micro-interactions and headless checkout infrastructure built for rapid scaling.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      id: 3,
-      badge: 'AI-POWERED SAAS',
-      title: 'SYNAPSE AI',
-      desc: 'Seamless machine learning playground, workflow pipelines builder, and visual analytics dashboards for LLM agents orchestration.',
-      image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop',
-    },
-    {
-      id: 4,
-      badge: 'NEXT-GEN MOBILE APP',
-      title: 'ORION FITNESS',
-      desc: 'Ultra-responsive iOS/Android application displaying real-time bio-metric telemetry overlays, personalized plans, and audio coaching companion.',
-      image: 'https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=800&auto=format&fit=crop',
-    }
-  ];
+  const defaultProjects = [];
 
   const [projects, setProjects] = useState(defaultProjects);
   const [activeId, setActiveId] = useState(1);

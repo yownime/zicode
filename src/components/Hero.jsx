@@ -50,26 +50,7 @@ export default function Hero({ onOpenContact }) {
     { name: 'aws', svg: 'https://cdn.worldvectorlogo.com/logos/amazon-web-services-2.svg' },
   ];
 
-  const defaultShowcases = [
-    {
-      url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop',
-      title: 'Zicode Web Platform v3',
-      badge: 'Next-Gen Interface',
-      desc: 'Sistem dasbor berperforma tinggi dan analitik alokasi keuangan tingkat lanjut yang dirancang untuk skala institusi.'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=1200&auto=format&fit=crop',
-      title: 'Orion Fitness Companion',
-      badge: 'Mobile App Engineering',
-      desc: 'Dasbor pemantauan kesehatan generasi berikutnya yang berisi metrik telemetri waktu-nyata dan overlay kepelatihan.'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
-      title: 'Aura Capital Dashboard',
-      badge: 'Fintech Platform UI',
-      desc: 'Dasbor fintech kustom, pelacakan smart contract otomatis, dan API perutean aset keuangan yang aman.'
-    }
-  ];
+  const defaultShowcases = [];
 
   const [showcaseImages, setShowcaseImages] = useState(defaultShowcases);
 
