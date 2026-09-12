@@ -75,10 +75,9 @@ export default function Footer() {
               <a href="mailto:hello@zicode.com" className="text-lg font-black hover:text-blue-500 transition-colors block">
                 hello@zicode.com
               </a>
-              <p className="mt-2 text-white/60">+1 (555) 019-2831</p>
+              <p className="mt-2 text-white/60">082160294628</p>
               <p className="text-white/60 leading-relaxed">
-                100 Innovation Parkway,<br />
-                Suite 400, Tech District
+                Kota Medan
               </p>
             </div>
           </div>
